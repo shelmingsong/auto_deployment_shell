@@ -1,0 +1,11 @@
+#!/usr/bin/expect
+set timeout 2
+
+set TEMP_PASS [lindex $argv 0]
+
+spawn mysql -uroot -p --connect-expired-password
+expect {
+    "Enter password:" {send -- "$TEMP_PASS\n";exp_continue}
+    "mysql> " {send -- "ALTER USER 'root'@'localhost' IDENTIFIED BY '$TEMP_PASS';\n"}
+}
+expect eof
