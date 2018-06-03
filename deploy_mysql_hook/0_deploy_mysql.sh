@@ -26,4 +26,6 @@ task_name="init_mysql"
 $curr_dir/init_mysql.exp $TEMP_PASS
 if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
 
+task_name="set_mysql_user"
 mysql -uroot -p$TEMP_PASS -e"set global validate_password_policy=0;set global validate_password_length=1;ALTER USER 'root'@'localhost' IDENTIFIED BY '$ROOT_PASS';grant all on *.* to '$USER_NAME'@'%' identified by '$USER_PASS' with grant option;"
+if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
