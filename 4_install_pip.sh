@@ -55,12 +55,15 @@ fi
 task_name="4.3_reload_environ_for_pyenv"
 if [[ ! `cat ~/.bashrc | grep 'export PYENV_ROOT="${HOME}/.pyenv"'` ]]; then
 cat << "EOF" >> ~/.bashrc
+
+# pyenv
 export PYENV_ROOT="${HOME}/.pyenv"
 
 if [ -d "${PYENV_ROOT}" ]; then
   export PATH="${PYENV_ROOT}/bin:${PATH}"
   eval "$(pyenv init -)"
 fi
+
 EOF
 source ~/.bashrc
 if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
@@ -92,7 +95,27 @@ else
     echo "$task_name" >> $ignored_list
 fi
 
-task_name="4.7_switch_pip_mirror_to_douban_repo"
+task_name="4.7_install_pyenv_virtualenv"
+if [[ ! -d ~/.pyenv/plugins/pyenv-virtualenv ]]; then
+    git clone git://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+    if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
+else
+    echo "$task_name" >> $ignored_list
+fi
+
+task_name="4.8_reload_environ_for_pyenv_virtualenv"
+if [[ ! `cat ~/.bashrc | grep 'eval "$(pyenv virtualenv-init -)"'` ]]; then
+    echo '' >> ~/.bashrc
+    echo '# pyenv virtualenv' >> ~/.bashrc
+    echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+    echo '' >> ~/.bashrc
+    source ~/.bashrc
+    if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
+else
+    echo "$task_name" >> $ignored_list
+fi
+
+task_name="4.9_switch_pip_mirror_to_douban_repo"
 if [[ ! -e ~/.pip/pip.conf ]]; then
 mkdir ~/.pip
 cat << "EOF" >> ~/.pip/pip.conf
