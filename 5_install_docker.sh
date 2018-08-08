@@ -39,8 +39,8 @@ else
 fi
 
 task_name="5.3_install_docker-ce"
-yum_package_name='docker-ce-17.06.2.ce-1.el7.centos'
-if [[ ! "`cat $yum_installed_list | grep 17.06.2.ce-1.el7.centos`" ]]
+yum_package_name='docker-ce'
+if [[ ! "`cat $yum_installed_list | grep docker-ce.x86_64`" ]]
 then
     yum makecache fast && \
     yum -y install $yum_package_name
@@ -56,7 +56,7 @@ if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_nam
 
 task_name="5.5_install_docker-compose"
 if [[ ! -e /etc/bash_completion.d/docker-compose ]]; then
-    pip install -U docker-compose==1.17.0 && \
+    pip install docker-compose && \
     curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/bash/docker-compose > /etc/bash_completion.d/docker-compose
     if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
 else
