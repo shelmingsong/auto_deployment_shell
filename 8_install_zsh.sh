@@ -15,7 +15,7 @@ function package_installed_judge(){
     fi
 }
 
-task_name="7.1_enable_sshd"
-systemctl start sshd && \
-systemctl enable sshd
+task_name="8.1_install_zsh"
+yum -y install zsh && \
+sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
