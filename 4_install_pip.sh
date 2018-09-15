@@ -71,25 +71,25 @@ else
     echo "$task_name" >> $ignored_list
 fi
 
-task_name="4.4_download_python_3.6.4"
-if [[ ! -e ~/.pyenv/cache/Python-3.6.4.tar.xz ]]; then
-    wget http://mirrors.sohu.com/python/3.6.4/Python-3.6.4.tar.xz  -P ~/.pyenv/cache
+task_name="4.4_download_python_3.6.6"
+if [[ ! -e ~/.pyenv/cache/Python-3.6.6.tar.xz ]]; then
+    wget http://mirrors.sohu.com/python/3.6.6/Python-3.6.6.tar.xz  -P ~/.pyenv/cache
     if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
 else
     echo "$task_name" >> $ignored_list
 fi
 
-task_name="4.5_install_python_3.6.4"
-if [[ ! "`pyenv versions | grep 3.6.4`" ]]; then
-    pyenv install 3.6.4
+task_name="4.5_install_python_3.6.6"
+if [[ ! "`pyenv versions | grep 3.6.6`" ]]; then
+    pyenv install 3.6.6
     if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
 else
     echo "$task_name" >> $ignored_list
 fi
 
-task_name="4.6_pyenv_global_python_3.6.4"
-if [[ ! "`pyenv global | grep 3.6.4`" ]]; then
-    pyenv global 3.6.4
+task_name="4.6_pyenv_global_python_3.6.6"
+if [[ ! "`pyenv global | grep 3.6.6`" ]]; then
+    pyenv global 3.6.6
     if [[ $? -eq 0 ]]; then echo "$task_name" >> $succeed_list; else echo "$task_name" >> $failed_list; fi
 else
     echo "$task_name" >> $ignored_list
