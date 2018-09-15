@@ -138,6 +138,14 @@ curr_time=`date +%s`
 echo_exec_time $last_time $curr_time $shell_name $exec_time_log
 last_time=$curr_time
 
+shell_name="8_install_zsh.sh"
+cd $curr_dir
+$curr_dir/8_install_zsh.sh $succeed_list $failed_list $ignore_list $yum_installed_list
+record_exec_result $succeed_shell $failed_shell $shell_name
+curr_time=`date +%s`
+echo_exec_time $last_time $curr_time $shell_name $exec_time_log
+last_time=$curr_time
+
 # ==================================================
 # all new hook shell need to be added before here
 # ==================================================
